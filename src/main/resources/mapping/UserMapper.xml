@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sunan.dao.UserDao">
-  <resultMap id="BaseResultMap" type="com.sunan.model.User">
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.sunan.model.User">
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+    </resultMap>
 
-  <sql id="Base_Column_List">
+    <sql id="Base_Column_List">
     username,password
   </sql>
 
-<!--  <select id="selectByPrimaryKey" parameterType="String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from user
-    where order_info_id = #{orderInfoId,jdbcType=VARCHAR}
-    order by add_time desc
-  </select>-->
-  
-  <select id="selectAll" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from user
-  </select>
+    <!--  <select id="selectByPrimaryKey" parameterType="String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        where order_info_id = #{orderInfoId,jdbcType=VARCHAR}
+        order by add_time desc
+      </select>-->
+
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="com.sunan.model.User">
+        select
+        <!--<include refid="Base_Column_List" />-->
+        *
+        from user
+        WHERE 1=1
+        <if test="username!=null">
+            AND username LIKE concat(#{username},'%')
+        </if>
+
+    </select>
 
 </mapper>

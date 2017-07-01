@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface IUserService {
 
-    List<User> selectAll();
+    List<User> selectAll(User user);
 
 
 }

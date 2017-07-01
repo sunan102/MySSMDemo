@@ -17,7 +17,7 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private UserDao userDao;
 
-    public List<User> selectAll() {
-        return userDao.selectAll();
+    public List<User> selectAll(User user) {
+        return userDao.selectAll(user);
     }
 }

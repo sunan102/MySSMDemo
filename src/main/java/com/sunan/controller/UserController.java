@@ -1,5 +1,7 @@
 package com.sunan.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sunan.model.User;
 import com.sunan.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +23,14 @@ public class UserController {
     @RequestMapping("/")
     public ModelAndView userList() {
         ModelAndView mv = new ModelAndView();
-        List<User> list=userService.selectAll();
-        mv.addObject("users",list);
+        PageHelper.startPage(2, 2);
+        User user = new User();
+//        user.setUsername("user2");
+        List<User> list = userService.selectAll(user);
+        PageInfo<User> p = new PageInfo<User>(list);
+        System.out.println(p.getList());
+        mv.addObject("users", list);
+        mv.addObject("p", p);
         mv.setViewName("user/list");
         return mv;
     }
